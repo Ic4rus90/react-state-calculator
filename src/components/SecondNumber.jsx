@@ -1,6 +1,6 @@
 import ".././App.css"
 
-export default function SecondNumber({ number, onValueChange }) {
+export default function SecondNumber({ number, onValueChange, setStoredNumber, recallStoredNumber }) {
 
     return (
     <div className="panel">
@@ -17,6 +17,9 @@ export default function SecondNumber({ number, onValueChange }) {
           <button onClick={() => onValueChange('9')}> 9 </button>
           <button onClick={() => onValueChange('0')}> 0 </button>
           <button onClick={() => onValueChange('')}> Clear </button>
+          <button> </button>
+          <button onClick={() => setStoredNumber(number)}> Store </button>
+          <button onClick={() => recallStoredNumber(2)}> Recall </button>
         </div>
       </div>
     );

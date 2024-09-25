@@ -7,9 +7,10 @@ import { useState } from "react"
 
 function Calculator() {
     const [firstNumber, setFirstNumber] = useState('0');
-    const [op, setOp] = useState('')
+    const [op, setOp] = useState('');
     const [secondNumber, setSecondNumber] = useState('0');
-    const [result, setResult] = useState(0) 
+    const [result, setResult] = useState(0);
+    const [storedNumber, setStoredNumber] = useState('');
 
     const updateFirstNumber = (number) => {
         if (firstNumber === '0') {
@@ -17,7 +18,7 @@ function Calculator() {
                 return;
             } 
             setFirstNumber(number);
-            return 
+            return;
         } else if (number === '') {
             setFirstNumber('0');
             return;
@@ -31,7 +32,7 @@ function Calculator() {
                 return;
             } 
             setSecondNumber(number);
-            return 
+            return;
         } else if (number === '') {
             setSecondNumber('0');
             return;
@@ -39,11 +40,31 @@ function Calculator() {
         setSecondNumber(secondNumber + number);
     }
 
+    const recallStoredNumber = (inputNumber) => {
+        /*
+        Parameters
+        1 - First number
+        2 - Second number
+        3 - Results
+        */
+        if (inputNumber === 1) {
+            setFirstNumber(storedNumber);
+        } else if (inputNumber === 2) {
+            setSecondNumber(storedNumber);
+        } else if (inputNumber === 3) {
+            setResult(storedNumber);
+        } else {
+            return 'An error occured.';
+        }
+    }
+
     return (    
         <div className="calculator">
             < FirstNumber 
             number={firstNumber} 
-            onValueChange={updateFirstNumber}/>
+            onValueChange={updateFirstNumber}
+            setStoredNumber={setStoredNumber}
+            recallStoredNumber={recallStoredNumber}/>
             
             < Operator 
             op={op} 
@@ -51,14 +72,18 @@ function Calculator() {
             
             < SecondNumber 
             number={secondNumber} 
-            onValueChange={updateSecondNumber}/>
+            onValueChange={updateSecondNumber}
+            setStoredNumber={setStoredNumber}
+            recallStoredNumber={recallStoredNumber}/>
             
             < Result 
             firstNumber={firstNumber} 
             operator={op} 
             secondNumber={secondNumber} 
             result={result} 
-            setResult={setResult}/>
+            setResult={setResult}
+            setStoredNumber={setStoredNumber}
+            recallStoredNumber={recallStoredNumber}/>
         </div>
     )
 }
